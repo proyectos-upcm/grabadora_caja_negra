@@ -1,12 +1,12 @@
 #!/bin/bash
 
 CARDNAME="CODEC"
-tmp=$(grep -Ev "^#|^$" ~/bin/grabacion_config.txt)
+tmp=$(grep -Ev "^#|^$" ~/bin/grabadora_config.txt)
 if [[ $tmp ]]; then
     CARDNAME=$tmp
 fi
 
-~/bin/grabacion_detener.sh 1>/dev/null 2>&1
+~/bin/grabadora_detener.sh 1>/dev/null 2>&1
 
 sudo mkdir -p /mnt/pinchousb
 sudo mount -o umask=000 /dev/sda1 /mnt/pinchousb
