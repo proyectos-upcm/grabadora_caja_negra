@@ -1,8 +1,29 @@
-# grabadora_mesa_mezclas
-Grabadora para mesa de mezclas con interfaz de audio USB
+# GRABADORA "CAJA NEGRA" PARA MESA DE MEZCLAS
 
+Grabadora para mesa de mezclas con interfaz de audio USB.
 
-## Paquetes Linux
+Las pistas de audio quedan almacenadas en un PINCHO USB de memoria.
+
+## Funcionamiento
+
+Basta conectar a la Raspberry Pi por este orden:
+
+- Un PINCHO USB de memoria.
+- El cable USB de la mesa de mezclas.
+- Conectar la fuente de alimentación de la Raspberry Pi.
+
+Esperamos al arranque de la Raspberry Pi (unos 30 segundos).
+
+En el momento en que el LED ROJO de la máquina se apague, estará en disposición de **ser pulsado el BOTÓN (durante 3 segundos)** para **INICIAR** o **DETENER** la grabación sucesivamente.
+
+INDICACIONES:
+
+- LED ROJO PARPADEANDO >> GRABACION EN CURSO
+- LED ROJO APAGADO >> GRABACION DETENIDA
+
+## INSTALACION:
+
+### Paquetes Linux
 
 ```
 sudo apt install jackd2 alsa-utils libasound2-dev libasound2-plugins  \
@@ -12,7 +33,7 @@ sudo apt install jackd2 alsa-utils libasound2-dev libasound2-plugins  \
 
 ```
 
-## Usuario Linux
+### Usuario Linux
 
 ```
 sudo adduser upcm
