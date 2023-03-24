@@ -13,7 +13,26 @@ sudo apt install jackd2 alsa-utils libasound2-dev libasound2-plugins  \
 
 ## Usuario Linux
 
-    sudo adduser upcm
+```
+sudo adduser upcm
+sudo usermod -a -G audio,plugdev,gpio upcm
+```
 
-    sudo usermod -a -G audio,plugdev,gpio upcm
+```
+sudo nano /etc/dbus-1/system-local.conf
+```
 
+```
+    <busconfig>
+        <policy user="YourUserHere">
+            <allow own="org.freedesktop.ReserveDevice1.Audio0"/>
+            <allow own="org.freedesktop.ReserveDevice1.Audio1"/>
+            <allow own="org.freedesktop.ReserveDevice1.Audio2"/>
+            <allow own="org.freedesktop.ReserveDevice1.Audio3"/>
+        </policy>
+    </busconfig>
+```
+    
+```
+sudo service dbus restart
+```
