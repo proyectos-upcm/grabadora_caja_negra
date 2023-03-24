@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
+""" Control de la grabación mediante un BOTON PULSADOR
+    en RASPBERRY PI > 2
+"""
 
-import  sys
 from    subprocess  import Popen
 from    gpiozero    import Button
 from    time        import sleep
 import  threading
 
 
-#################
-BOTON = Button(3)
+########################################################################
+# GPIO-03_pin-05 <---> GND_pin-06 (tercera pareja de pines)
+BOTON = Button(3) # GPIO-03
 LED   = 'rojo'
-#################
+########################################################################
 
 
 def _bucle_led():
@@ -35,17 +38,23 @@ def _bucle_led():
         onoff = {0:1, 1:0}.get(onoff)
 
 
-def _bucle_boton(tg=3):
+def _bucle_boton():
     """ BUCLE INFINITO que lee las pulsaciones del botón de control,
         con un tiempo de guarda tg (por defecto 3 segundos) hasta empezar
         a leer de nuevo.
     """
 
     def espera_pulsacion(t=3):
-        """ Comprueba que el botón esté pulsado de forma sostenida
-            durante t segundos
+        """ Comprueba que el botón esté pulsado durante t segundos
         """
-        BOTON.wait_for_press()
+        c = 0
+        while True:
+            BOTON.wait_for_press()
+            c += 1
+            sleep(.5)
+            if c >= 2*t:
+                break
+
 
     grabar = False
     while True:
@@ -55,7 +64,6 @@ def _bucle_boton(tg=3):
             iniciar_grabacion()
         else:
             detener_grabacion()
-        sleep(tg)
 
 
 def iniciar_grabacion():
@@ -64,7 +72,7 @@ def iniciar_grabacion():
     # Inicia el parpadeo del LED
     ev_blink.set()
     # Ejecuta script de incio de la grabadora
-    # Popen(...)
+    Popen("~/bin/grabadora_iniciar.sh", shell=True)
 
 
 def detener_grabacion():
@@ -73,7 +81,7 @@ def detener_grabacion():
     # Detiene el parpadeo del LED
     ev_blink.clear()
     # Ejecuta script de detención de la grabadora
-    # Popen(...)
+    Popen("~/bin/grabadora_detener.sh", shell=True)
 
 
 if __name__ == "__main__":
