@@ -13,7 +13,7 @@ LED   = 'rojo'
 #################
 
 
-def _led_manager():
+def _bucle_led():
     """ BUCLE infinito que gobierna un led de la placa, en función
         del evento 'ev_blink' lo hace parpadar o lo mantiene apagado
     """
@@ -35,25 +35,7 @@ def _led_manager():
         onoff = {0:1, 1:0}.get(onoff)
 
 
-def iniciar_grabacion():
-
-    print('GRABANDO')
-    # Inicia el parpadeo del LED
-    ev_blink.set()
-    # Ejecuta script de incio de la grabadora
-    # Popen(...)
-
-
-def detener_grabacion():
-
-    print('PARANDO')
-    # Detiene el parpadeo del LED
-    ev_blink.clear()
-    # Ejecuta script de detención de la grabadora
-    # Popen(...)
-
-
-def _boton_lector(tg=3):
+def _bucle_boton(tg=3):
     """ BUCLE INFINITO que lee las pulsaciones del botón de control,
         con un tiempo de guarda tg (por defecto 3 segundos) hasta empezar
         a leer de nuevo.
@@ -76,16 +58,34 @@ def _boton_lector(tg=3):
         sleep(tg)
 
 
+def iniciar_grabacion():
+
+    print('GRABANDO')
+    # Inicia el parpadeo del LED
+    ev_blink.set()
+    # Ejecuta script de incio de la grabadora
+    # Popen(...)
+
+
+def detener_grabacion():
+
+    print('PARANDO')
+    # Detiene el parpadeo del LED
+    ev_blink.clear()
+    # Ejecuta script de detención de la grabadora
+    # Popen(...)
+
+
 if __name__ == "__main__":
 
     # Inicia la gestión del LED
     ev_blink = threading.Event()
-    th_led = threading.Thread(target=_led_manager)
+    th_led = threading.Thread(target=_bucle_led)
     th_led.start()
 
 
     # Inicia la lectura del botón de control
     print('PULSAR BOTON PARA INICIAR/PARAR')
-    th_boton = threading.Thread(target=_boton_lector)
+    th_boton = threading.Thread(target=_bucle_boton)
     th_boton.start()
 
