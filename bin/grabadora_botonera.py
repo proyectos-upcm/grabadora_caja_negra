@@ -15,23 +15,24 @@ LED_ROJO    = LED(18)
 def iniciar_grabacion():
 
     print('GRABANDO')
-    sleep(3)
+    # Popen(...)
 
     B_ROJO.wait_for_press()
     detener_grabacion()
+    sleep(1)                # debounce
 
 
 def detener_grabacion():
 
     print('PARANDO')
-    sleep(3)
+    # Popen(...)
 
 
 def main():
     print('PULSAR VERDE PARA INICIAR')
     while True:
         B_VERDE.wait_for_press()
-        iniciar_grabacion()
+        iniciar_grabacion() # esto ya tarda unos segundos
 
 
 if __name__ == "__main__":
