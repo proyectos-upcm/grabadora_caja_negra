@@ -4,7 +4,7 @@ Grabadora para mesa de mezclas con interfaz de audio USB.
 
 Las pistas de audio quedan almacenadas en un PINCHO USB de memoria.
 
-## Funcionamiento
+## FUNCIONAMIENTO
 
 Basta conectar a la Raspberry Pi por este orden:
 
@@ -59,7 +59,7 @@ sudo nano /etc/dbus-1/system-local.conf
 sudo service dbus restart
 ```
 
-## Autoarranque al encendido
+### Autoarranque al encendido
 
 ```
 sudo nano /etc/rc.local
