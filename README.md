@@ -33,7 +33,12 @@ sudo apt install jackd2 alsa-utils libasound2-dev libasound2-plugins  \
 
 ```
 
-### Usuario Linux
+### Archivos
+
+Copiar el contenido de `bin/` de este repositorio en `/home/upcm/bin/`
+
+
+### Ajustes para el usuario `upcm`
 
 ```
 sudo adduser upcm
