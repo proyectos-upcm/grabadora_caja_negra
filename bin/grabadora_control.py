@@ -38,13 +38,12 @@ def _bucle_led():
         onoff = {0:1, 1:0}.get(onoff)
 
 
-def _bucle_boton():
+def _bucle_boton(tp=3):
     """ BUCLE INFINITO que lee las pulsaciones del botón de control,
-        con un tiempo de guarda tg (por defecto 3 segundos) hasta empezar
-        a leer de nuevo.
+        con un tiempo de persistencia tp por defecto 3 segundos.
     """
 
-    def espera_pulsacion(t=3):
+    def espera_pulsacion():
         """ Comprueba que el botón esté pulsado durante t segundos
         """
         c = 0
@@ -52,7 +51,7 @@ def _bucle_boton():
             BOTON.wait_for_press()
             c += 1
             sleep(.5)
-            if c >= 2*t:
+            if c >= 2 * tp:
                 break
 
 
