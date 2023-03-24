@@ -46,7 +46,7 @@ sudo nano /etc/dbus-1/system-local.conf
 
 ```
     <busconfig>
-        <policy user="YourUserHere">
+        <policy user="upcm">
             <allow own="org.freedesktop.ReserveDevice1.Audio0"/>
             <allow own="org.freedesktop.ReserveDevice1.Audio1"/>
             <allow own="org.freedesktop.ReserveDevice1.Audio2"/>
