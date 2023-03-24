@@ -44,7 +44,7 @@ def _bucle_boton(tp=3):
     """
 
     def espera_pulsacion():
-        """ Comprueba que el botón esté pulsado durante t segundos
+        """ Comprueba que el botón esté pulsado durante tp segundos
         """
         c = 0
         while True:
@@ -55,6 +55,9 @@ def _bucle_boton(tp=3):
                 break
 
 
+    print('PULSAR BOTON PARA INICIAR/PARAR')
+
+    # BUCLE de lectura
     grabar = False
     while True:
         espera_pulsacion()
@@ -91,7 +94,6 @@ if __name__ == "__main__":
     th_led.start()
 
     # Inicia la lectura del botón de control
-    print('PULSAR BOTON PARA INICIAR/PARAR')
     th_boton = threading.Thread(target=_bucle_boton)
     th_boton.start()
 
