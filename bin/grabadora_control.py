@@ -83,7 +83,6 @@ if __name__ == "__main__":
     th_led = threading.Thread(target=_bucle_led)
     th_led.start()
 
-
     # Inicia la lectura del botón de control
     print('PULSAR BOTON PARA INICIAR/PARAR')
     th_boton = threading.Thread(target=_bucle_boton)
