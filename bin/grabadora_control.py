@@ -17,7 +17,7 @@ LED   = 'rojo'
 
 
 def _bucle_led():
-    """ BUCLE infinito que gobierna un led de la placa, en función
+    """ BUCLE INFINITO que gobierna un led de la placa, en función
         del evento 'ev_blink' lo hace parpadar o lo mantiene apagado
     """
 
