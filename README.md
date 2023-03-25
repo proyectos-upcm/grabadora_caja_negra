@@ -20,6 +20,8 @@ INDICACIONES:
 
 - LED ROJO PARPADEANDO >> GRABACION EN CURSO
 - LED ROJO APAGADO >> GRABACION DETENIDA
+- LED VERDE APAGADO >> Podemos desconectar la alimentación para extraer el PINCHO USB con los audios grabados.
+
 
 ## INSTALACION:
 
