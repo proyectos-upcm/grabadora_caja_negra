@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Control de la grabación mediante un BOTON PULSADOR
-    en RASPBERRY PI > 2
+    en RASPBERRY PI >= 2
 """
 
 import  subprocess  as sp
