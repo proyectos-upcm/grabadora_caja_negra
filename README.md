@@ -10,17 +10,17 @@ Basta conectar a la Raspberry Pi por este orden:
 
 - Un PINCHO USB de memoria.
 - El cable USB de la mesa de mezclas.
-- Conectar la fuente de alimentación de la Raspberry Pi.
+- Conectar la fuente de alimentación de la Raspberry Pi (cargador recomendado >= 2 A)
 
 Esperamos al arranque de la Raspberry Pi (unos 30 segundos).
 
-En el momento en que el LED ROJO de la máquina se apague, estará en disposición de **ser pulsado el BOTÓN (durante 3 segundos)** para **INICIAR** o **DETENER** la grabación sucesivamente.
+En el momento en que el LED ROJO de la máquina se apague, estará en disposición de **ser pulsado el BOTÓN (durante 3 segundos)** para **INICIAR** o **DETENER** la grabación sucesivamente. Normalmente la detendremos al final del evento a la par que la cámara deja de grabar.
 
-INDICACIONES:
+### Indicaciones LED ROJO:
 
-- LED ROJO PARPADEANDO >> GRABACION EN CURSO
-- LED ROJO APAGADO >> GRABACION DETENIDA
-- LED VERDE APAGADO >> Podemos desconectar la alimentación para extraer el PINCHO USB con los audios grabados.
+- PARPADEO RÁPIDO >> PREPARANDO GRABACION ...
+- PARPADEO LENTO >> GRABACION EN CURSO
+- APAGADO >> GRABACION DETENIDA
 
 
 ## INSTALACION:
