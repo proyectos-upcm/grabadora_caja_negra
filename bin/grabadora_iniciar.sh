@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# Frec de muestreo
+RATE=48000
+
 # tarjeta de sonido
-CARDNAME="CODEC"
-tmp=$(grep -Ev "^#|^$" ~/bin/grabadora_config.txt)
-if [[ $tmp ]]; then
-    CARDNAME=$tmp
+CARDNAME=$(aplay -l | grep USB | cut -d' ' -f3)
+if [[ ! $CARDNAME ]]; then
+    CARDNAME="CODEC"
 fi
+
 
 # disco USB
 PINCHO="/dev/sda1"
@@ -23,7 +26,7 @@ sudo mkdir -p /mnt/pinchousb
 sudo mount -o umask=000 "$PINCHO" /mnt/pinchousb
 
 # servidor de audio
-jackd -d alsa -d hw:"$CARDNAME" -C -r 48000 &
+jackd -d alsa -d hw:"$CARDNAME" -C -r "$RATE" &
 sleep 3
 
 # prefijo del archivo de audio
