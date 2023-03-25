@@ -3,7 +3,7 @@
     en RASPBERRY PI > 2
 """
 
-from    subprocess  import Popen
+import  subprocess  as sp
 from    gpiozero    import Button
 from    time        import sleep
 import  threading
@@ -21,19 +21,35 @@ def _bucle_led():
         del evento 'ev_blink' lo hace parpadar o lo mantiene apagado
     """
 
+    def blink(frec='normal'):
+        t = {'normal': 1.0, 'rapido': 0.1, 'off': 0}.get(frec)
+        if t:
+            sp.Popen(f"sudo sh -c 'echo {onoff} > /sys/class/leds/{led}/brightness'", shell=True)
+            sleep(t)
+        else:
+            sp.Popen(f"sudo sh -c 'echo 0       > /sys/class/leds/{led}/brightness'", shell=True)
+            sleep(1)
+
+
     # Por defecto usamos el LED 'rojo' de la placa
     led = {'verde': 'led0', 'rojo': 'led1'}.get(LED, 'led1')
 
     # BUCLE de parpadeo
     onoff = 0
+    jack_capture = None
     while True:
 
         if ev_blink.is_set():
-            Popen(f"sudo sh -c 'echo {onoff} > /sys/class/leds/{led}/brightness'", shell=True)
+            if not jack_capture:
+                blink('rapido')
+                try:
+                    jack_capture = sp.check_output('pgrep -f jack_capture'.split())
+                except:
+                    pass
+            else:
+                blink('normal')
         else:
-            Popen(f"sudo sh -c 'echo {0}     > /sys/class/leds/{led}/brightness'", shell=True)
-
-        sleep(.5)
+            blink('off')
 
         onoff = {0:1, 1:0}.get(onoff)
 
@@ -74,7 +90,7 @@ def iniciar_grabacion():
     # Inicia el parpadeo del LED
     ev_blink.set()
     # Ejecuta script de incio de la grabadora
-    Popen("~/bin/grabadora_iniciar.sh", shell=True)
+    sp.Popen("~/bin/grabadora_iniciar.sh", shell=True)
 
 
 def detener_grabacion():
@@ -83,7 +99,7 @@ def detener_grabacion():
     # Detiene el parpadeo del LED
     ev_blink.clear()
     # Ejecuta script de detención de la grabadora
-    Popen("~/bin/grabadora_detener.sh", shell=True)
+    sp.Popen("~/bin/grabadora_detener.sh", shell=True)
 
 
 if __name__ == "__main__":
