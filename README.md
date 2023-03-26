@@ -4,6 +4,8 @@ Grabadora para mesa de mezclas con interfaz de audio USB.
 
 Las pistas de audio quedan almacenadas en un PINCHO USB de memoria, con un nombre de archivo secuencial con la fecha y hora de inicio.
 
+El script `grabadora_control.py` permite usar un LED de los integrados en la placa Raspberry Pi o bien un LED dedicado.
+
 ## FUNCIONAMIENTO
 
 Basta conectar a la Raspberry Pi por este orden:
@@ -20,7 +22,7 @@ Si usamos un LED dedicado no lucirá, basta con esperar los 30 segundos referido
 
 **PULSAR el BOTÓN (durante 3 segundos)** para **INICIAR** o **DETENER** la grabación sucesivamente. Normalmente la detendremos al final del evento a la par que la cámara deja de grabar.
 
-### Indicaciones LED ROJO:
+### Indicaciones LED:
 
 - PARPADEO RÁPIDO >> PREPARANDO GRABACION ...
 - PARPADEO LENTO >> GRABACION EN CURSO
