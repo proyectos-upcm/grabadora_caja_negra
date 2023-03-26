@@ -2,7 +2,7 @@
 
 Grabadora para mesa de mezclas con interfaz de audio USB.
 
-Las pistas de audio quedan almacenadas en un PINCHO USB de memoria.
+Las pistas de audio quedan almacenadas en un PINCHO USB de memoria, con un nombre de archivo secuencial con la fecha y hora de inicio.
 
 ## FUNCIONAMIENTO
 
@@ -14,7 +14,11 @@ Basta conectar a la Raspberry Pi por este orden:
 
 Esperamos al arranque de la Raspberry Pi (unos 30 segundos).
 
-En el momento en que el LED ROJO de la máquina se apague, estará en disposición de **ser pulsado el BOTÓN (durante 3 segundos)** para **INICIAR** o **DETENER** la grabación sucesivamente. Normalmente la detendremos al final del evento a la par que la cámara deja de grabar.
+Si usamos el LED rojo integrado en la placa Raspberry Pi, al conectarle alimentación se pone en rojo, y se apaga cuando el programa de control de la grabación está listo.
+
+Si usamos un LED dedicado no lucirá, basta con esperar los 30 segundos referidos.
+
+**PULSAR el BOTÓN (durante 3 segundos)** para **INICIAR** o **DETENER** la grabación sucesivamente. Normalmente la detendremos al final del evento a la par que la cámara deja de grabar.
 
 ### Indicaciones LED ROJO:
 
@@ -22,6 +26,9 @@ En el momento en que el LED ROJO de la máquina se apague, estará en disposici�
 - PARPADEO LENTO >> GRABACION EN CURSO
 - APAGADO >> GRABACION DETENIDA
 
+### Extracción del PINCHO USB de memoria:
+
+Podremos extraer el PINCHO USB cuando el LED esté apagado, o lógicamente cuando la Raspberry Pi esté sin alimentación.
 
 ## INSTALACION:
 
