@@ -1,9 +1,9 @@
 #!/bin/bash
 
-CARDNAME="CODEC"
-tmp=$(grep -Ev "^#|^$" ~/bin/grabadora_config.txt)
-if [[ $tmp ]]; then
-    CARDNAME=$tmp
+# tarjeta de sonido
+CARDNAME=$(aplay -l | grep USB | cut -d' ' -f3)
+if [[ ! $CARDNAME ]]; then
+    CARDNAME="CODEC"
 fi
 
 # Paramos la grabación
