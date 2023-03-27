@@ -21,6 +21,29 @@ LED   = gpiozero.LED(15)    # GPIO-15 (quinta pareja de pines)
 ########################################################################
 
 
+def detecta_jack_capture():
+
+    detectado = False
+
+    c = 10  # límite de intentos
+    n = 0   # veces detectado jack_capture
+    while c:
+        try:
+            sp.check_output('pgrep -f jack_capture'.split())
+            n += 1
+        except:
+            pass
+        if n == 3:
+            detectado = True
+            break
+        c -= 1
+        sleep(1)
+
+    print('jack_capture en ejecución:', detectado)
+
+    return detectado
+
+
 def _bucle_led_placa():
     """ BUCLE INFINITO que gobierna un led de la placa, en función
         del evento 'ev_blink' lo hace parpadar o lo mantiene apagado
@@ -45,7 +68,7 @@ def _bucle_led_placa():
     while True:
 
         if ev_blink.is_set():
-            # Parpadeo normal cuando de detecte jack_capture funcionando
+            # Parpadeo normal cuando se detecte jack_capture funcionando
             if not jack_capture:
                 blink('rapido')
                 try:
@@ -119,27 +142,8 @@ def iniciar_grabacion():
     else:
 
         led_blink('rapido')
-
-        # Parpadeo normal cuando de detecte jack_capture funcionando
-        # al menos durante 3 veces (por si no pudiera escribir en disco)
-        jack_capture = False
-        c = 10
-        n = 0   # veces detectado jack_capture
-        while (c or not jack_capture):
-            try:
-                jc = sp.check_output('pgrep -f jack_capture'.split())
-                if jc:
-                    n += 1
-            except:
-                pass
-
-            if n == 3:
-                jack_capture = True
-                led_blink('normal')
-
-            c -=1
-            sleep(.5)
-
+        if detecta_jack_capture():
+            led_blink('normal')
 
 
 def detener_grabacion():
