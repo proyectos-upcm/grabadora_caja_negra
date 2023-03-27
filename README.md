@@ -20,13 +20,15 @@ Si usamos el LED rojo integrado en la placa Raspberry Pi, al conectarle alimenta
 
 Si usamos un LED dedicado no lucirá, basta con esperar los 30 segundos referidos.
 
-**PULSAR el BOTÓN (durante 3 segundos)** para **INICIAR** o **DETENER** la grabación sucesivamente. Normalmente la detendremos al final del evento a la par que la cámara deja de grabar.
+**PULSAR el BOTÓN (durante > 3 segundos)** para **INICIAR** o **DETENER** la grabación sucesivamente. Normalmente la detendremos al final del evento a la par que la cámara deja de grabar.
 
 ### Indicaciones LED:
 
-- PARPADEO RÁPIDO >> PREPARANDO GRABACION ...
+- PARPADEO RÁPIDO >> PREPARANDO GRABACION ... (\*)
 - PARPADEO LENTO >> GRABACION EN CURSO
 - APAGADO >> GRABACION DETENIDA
+
+(\*) Si la grabadora NO pudiera acceder al PINCHO, seguirá el PARPADEO RÁPIDO
 
 ### Extracción del PINCHO USB de memoria:
 
