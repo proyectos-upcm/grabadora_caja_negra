@@ -111,7 +111,7 @@ def iniciar_grabacion():
     # Ejecuta script de incio de la grabadora
     sp.Popen("~/bin/grabadora_iniciar.sh", shell=True)
 
-    # Inicia el parpadeo del LED
+    # Inicia el parpadeo del LED integrado o dedicado
     if led_integrado:
 
         ev_blink.set()
@@ -121,14 +121,22 @@ def iniciar_grabacion():
         led_blink('rapido')
 
         # Parpadeo normal cuando de detecte jack_capture funcionando
+        # al menos durante 3 veces (por si no pudiera escribir en disco)
         jack_capture = False
-        c=10
+        c = 10
+        n = 0   # veces detectado jack_capture
         while (c or not jack_capture):
             try:
-                jack_capture = sp.check_output('pgrep -f jack_capture'.split())
-                led_blink('normal')
+                jc = sp.check_output('pgrep -f jack_capture'.split())
+                if jc:
+                    n += 1
             except:
                 pass
+
+            if n == 3:
+                jack_capture = True
+                led_blink('normal')
+
             c -=1
             sleep(.5)
 
