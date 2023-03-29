@@ -13,10 +13,10 @@ import  threading
 BOTON = gpiozero.Button(3)  # GPIO-03
 
 # Opción usando uno de los LED integrados en placa (rojo o verde)
-LED   = 'rojo'
+#LED   = 'rojo'
 
 # Opción usando un LED dedicado en un pin GPIO
-#LED   = gpiozero.LED(15)    # GPIO-15 (quinta pareja de pines)
+LED   = gpiozero.LED(15)    # GPIO-15 (quinta pareja de pines)
 ########################################################################
 
 
@@ -56,16 +56,19 @@ def loop_detecta_jack_capture():
         el indicativo de estado en consecuencia (LED y consola)
     """
 
+    global JACK_CAPTURE
+
     def display_update(estado):
         """ maneja LED y consola
         """
-        print(f'---> {estado}')
-
         modo_led = {'PARADO':'off', 'GRABANDO':'normal', 'PREPARANDO':'rapido'}.get(estado, 'off')
-        if TIPO_DE_LED == 'integrado':
-            ev_led_integrado_blink.set()
-        else:
+        if TIPO_DE_LED == 'gpio':
             led_gpio_blink(modo_led)
+        else:
+            # el led integrado tiene un loop propio en threading
+            pass
+
+        print(f'---> {estado}')
 
 
     st = st_prev = 'PARADO'
@@ -75,12 +78,12 @@ def loop_detecta_jack_capture():
 
             try:
                 sp.check_output('pgrep -f jack_capture'.split())
-                ev_jack_capture.set()
+                JACK_CAPTURE = True
             except:
-                ev_jack_capture.clear()
+                JACK_CAPTURE = False
 
 
-            if ev_jack_capture.is_set():
+            if JACK_CAPTURE:
 
                 st = 'GRABANDO'
                 if st != st_prev:
@@ -106,7 +109,9 @@ def loop_detecta_jack_capture():
 
 def loop_led_integrado():
     """ BUCLE INFINITO que gobierna un led integrado en la placa, en función
-        del evento 'ev_led_integrado_blink' lo hace parpadar o lo mantiene apagado
+        del las variables GRABACION_INICIADA y JACK_CAPTURE lo hace parpadar
+        o lo mantiene apagado.
+
         NOTA: los led de placa no están gestionados por la libreria 'gpiozero',
               por tanto necesitamos este LOOP para hacerlo parpadear.
     """
@@ -130,7 +135,7 @@ def loop_led_integrado():
 
         if GRABACION_INICIADA:
             # Parpadeo normal cuando se detecte jack_capture funcionando
-            if ev_jack_capture.is_set():
+            if JACK_CAPTURE:
                 blink('normal')
             else:
                 blink('rapido')
@@ -142,6 +147,7 @@ def loop_led_integrado():
 
 def led_gpio_blink(mode='normal'):
     """ Usado para gestionar un LED dedicado en un pin GPIO
+        usando la librería gpiozero
     """
 
     if mode == 'normal':
@@ -159,9 +165,6 @@ def iniciar_grabacion():
 
     global GRABACION_INICIADA
 
-    # Limpia el evento indicativo de jack_capture
-    ev_jack_capture.clear()
-
     # Ejecuta script de incio de la grabadora
     sp.Popen("~/bin/grabadora_iniciar.sh", shell=True)
     GRABACION_INICIADA = True
@@ -175,17 +178,15 @@ def detener_grabacion():
     sp.Popen("~/bin/grabadora_detener.sh", shell=True)
     GRABACION_INICIADA = False
 
-    # Limpia el evento indicativo de jack_capture
-    ev_jack_capture.clear()
-
 
 if __name__ == "__main__":
 
     # Indicativo del tipo de LED en uso
     TIPO_DE_LED = 'integrado' if (type(LED) == str) else 'gpio'
 
-    # Flag indicativo de grabadora iniciada
+    # Flags indicativos del estado de la grabadora
     GRABACION_INICIADA = False
+    JACK_CAPTURE       = False
 
     # LOOP de lectura del botón de control
     th_boton = threading.Thread(target = loop_boton_gpio)
@@ -193,12 +194,10 @@ if __name__ == "__main__":
 
     # LOOP que detecta si 'jack_capture' está en ejecución y maneja
     # la visualización al usuario en consecuencia.
-    ev_jack_capture = threading.Event()
     th_jack_capture = threading.Thread(target = loop_detecta_jack_capture)
     th_jack_capture.start()
 
-    # LOOP auxiliar para hacer parpadear un LED integrado en placa si es el elegido
+    # LOOP auxiliar para hacer parpadear un LED integrado en placa
     if TIPO_DE_LED == 'integrado':
-        ev_led_integrado_blink = threading.Event()
         th_led = threading.Thread(target = loop_led_integrado)
         th_led.start()
