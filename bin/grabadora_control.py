@@ -52,8 +52,8 @@ def loop_boton_gpio(tp=3):
 
 def loop_detecta_jack_capture():
     """ BUCLE INFINITO para la detección del proceso 'jack_capture',
-        activando entonces el Event del mismo nombre, y gestionando
-        el indicativo de estado en consecuencia (LED y consola)
+        activando entonces el flag JACK_CAPTURE, y gestionando en
+        consecuencia las indicaciones de estado (LED y consola)
     """
 
     global JACK_CAPTURE
