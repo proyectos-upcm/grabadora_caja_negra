@@ -8,7 +8,6 @@ La interfaz de usuario consiste en un sencillo pulsador y un LED indicador del e
 
 Las pistas de audio quedan almacenadas en un PINCHO USB de memoria, con un nombre de archivo secuencial con la fecha y hora de inicio.
 
+<img src="./doc/img/grabadora.jpeg" style="width:400px;">
 
-<a href="url"><img src="./doc/img/grabadora.jpeg" align="center" width="400" ></a>
-
-<a href="url"><img src="./doc/img/grabadora%20+%20micros.jpeg" align="center" width="400" ></a>
+<img src="./doc/img/grabadora%20+%20micros.jpeg" style="width:400px;">
