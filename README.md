@@ -1,4 +1,4 @@
-# GRABADORA "CAJA NEGRA" PARA MESA DE MEZCLAS
+# GRABADORA "CAJA NEGRA"
 
 Grabadora para mesa de mezclas con interfaz de audio USB.
 
