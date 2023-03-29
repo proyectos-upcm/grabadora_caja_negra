@@ -66,9 +66,6 @@ sudo nano /etc/dbus-1/system-local.conf
     </busconfig>
 ```
     
-```
-sudo service dbus restart
-```
 
 ### Autoarranque al encendido
 
@@ -81,7 +78,8 @@ sudo nano /etc/rc.local
 ...
 
 # Grabadora controlada por un boton
-su -l upcm -c "grabadora_control.py &"
+su -l upcm -c "/home/upcm/bin/grabadora_control.py &"
 
 exit 0
 ```
+
