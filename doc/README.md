@@ -24,7 +24,9 @@ Si usamos un LED dedicado no lucirá, basta con esperar los 30 segundos referido
 
 ### Configuración:
 
-No se precisa. Pero el script `grabadora_control.py` permite usar un LED de los integrados en una placa Raspberry Pi o bien un LED dedicado en las conexiones GPIO.
+**No se precisa**
+
+Opcionalmente podemos EDITAR el script `grabadora_control.py` para usar un LED de los integrados en la placa Raspberry Pi (útil si usamos una caja transparente) o bien un LED dedicado en las conexiones GPIO (en caso de ser una caja opaca).
 
 
 ### Extracción del PINCHO USB de memoria:
